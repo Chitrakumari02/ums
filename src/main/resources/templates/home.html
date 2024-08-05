@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>University Management System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        @media only screen and (max-width:768px) {
+            .transbox {
+                padding-left: 4rem;
+            }
+        }
+
+        header {
+            overflow-x: hidden;
+        }
+
+        :root {
+            --main-color: #0D5A87;
+            --light-gray: rgba(255, 255, 255, 0.7);
+            --dark-gray: #2e2c2c;
+        }
+
+        header .container-fluid {
+            background-color: var(--main-color);
+        }
+
+        header .navbar {
+            margin: 0;
+            padding: 0;
+        }
+
+        header a {
+            color: whitesmoke;
+            font-family: 'Acme', cursive;
+        }
+
+        header .navbar-brand {
+            font-size: 2em;
+            vertical-align: middle;
+            color: whitesmoke;
+            padding-left: 0.2rem;
+            text-shadow: 5px 5px 10px black;
+        }
+
+        header .navbar-brand img {
+            border-radius: 50%;
+            max-width: 100%;
+            height: auto;
+            margin-right: 0.2em;
+        }
+
+        header .navbar-brand img:hover {
+            transform: scale(1.1);
+            transition: 1s;
+        }
+
+        header .nav-link {
+            color: whitesmoke;
+            font-size: 1em;
+        }
+
+        header .nav-link:hover {
+            transform: scale(1.1);
+            transition: 1s;
+            color: white;
+        }
+
+        header .nav-item:last-child {
+            padding-right: 2em;
+        }
+
+        header .nav-item {
+            padding: 0.9em;
+        }
+
+        main {
+            background-image: url("/images/background.png.jpg");
+            margin: 0;
+            padding: 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        main marquee {
+            color: rgb(113, 26, 151);
+            font-family: 'Lobster Two', cursive;
+            font-size: 2rem;
+        }
+
+        main .row {
+            margin-top: -2.5rem;
+        }
+
+        main .row .col-md-5 {
+            padding: 10vmin 15vmin;
+            padding-right: 20vmin;
+            padding-top: 18vmin;
+        }
+
+        main .row .col-md-7 {
+            padding-top: 15vmin;
+            margin-left: 8vmin;
+            font-family: 'Lobster Two', cursive;
+        }
+
+        main .row .col-md-7 .btn:hover {
+            transform: scale(1.2);
+            transition: 1s;
+            background-color: purple;
+            color: white;
+        }
+
+        main .row .col-md-7 h1 {
+            font-family: 'Lobster', cursive;
+            font-size: 7vmin;
+            font-weight: bold;
+            color: rgb(150, 15, 207);
+            padding: 0.1em 0em;
+        }
+
+        main .row .col-md-5 .img-fluid {
+            width: 150%;
+            height: 60%;
+        }
+
+        main .row .col-md-7 h3 {
+            padding: 1vmin;
+            letter-spacing: 2px;
+        }
+
+        main .row .col-md-7 .btn {
+            border-radius: 30px;
+            font-weight: bold;
+            background-color: rgb(129, 31, 233);
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 1);
+            overflow-x: hidden;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer .pt-4 {
+            color: whitesmoke;
+            font-size: smaller;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container-fluid p-0">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <h1 class="navbar-brand">
+                        <img th:src="@{/images/bv_logo.png}" alt="Logo" width="70em" height="70em">
+                        University Management System
+                    </h1>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" aria-current="page" th:href="@{/admin_login.html}">
+                                    <img th:src="@{/images/admin_logo.png}" alt="Admin" width="50" height="50">
+                                    Admin
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/student_login.html}">
+                                    <img th:src="@{/images/student_logo.png}" alt="Student" width="50" height="50">
+                                    Student
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/teacher_login.html}">
+                                    <img th:src="@{/images/teacher_icon_2.jpg}" alt="Teacher" width="50" height="50">
+                                    Teacher
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/prospective_student.html}">
+                                    <img th:src="@{/images/prospect_students.png}" alt="Prospective Student" width="50" height="50">
+                                    Prospective Student
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container text-center">
+            <marquee behavior="" direction="left" style="color:darkblue;">Welcome to the University Management System!</marquee>
+            <div class="row">
+                <div class="col-md-7 col-sm-12">
+                    <div style="color:rgb(24, 24, 24); height: 100%; width: 80%; border-radius: 3vmin; margin-left: auto; margin-right: auto;">
+                        <br>
+                        <h3 style="color:rgb(24, 24, 24)">Empowering Education, Inspiring Future</h3>
+                        <br>
+                        <h1 style="color:rgb(230, 230, 236)">University Management System</h1>
+                        <br>
+                        <h3>Your Gateway to a Seamless University Experience</h3>
+                        <br>
+                        <a th:href="@{/registeration.html}"><button class="btn btn-info btn-rounded btn-lg px-5 py-2"><b>Register</b></button></a>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12">
+                    <!-- Optional image or content here -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container-fluid">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <p class="pt-4">
+                        Made for XYZ University<br>
+                        Copyright &copy; University Management System 2024
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
