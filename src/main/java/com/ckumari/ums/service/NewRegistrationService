@@ -1,0 +1,20 @@
+package com.gmaurya.ums.service;
+
+import java.util.Optional;
+
+import com.gmaurya.ums.dto.ForgotPasswordDto;
+import com.gmaurya.ums.dto.LoginDto;
+import com.gmaurya.ums.dto.RegistrationDto;
+import com.gmaurya.ums.dto.ResetPasswordDto;
+import com.gmaurya.ums.entity.Registration;
+
+public interface RegistrationService {
+	Registration save(RegistrationDto registrationDto);
+
+	//Registration findByEmail(String email);
+	
+	boolean validateUser(LoginDto loginDto);
+	boolean validateSecurityQuestions(ForgotPasswordDto forgotPasswordDto);
+	boolean resetPassword(ResetPasswordDto resetPasswordDto);
+	Optional<Registration> findById(String email);
+}
