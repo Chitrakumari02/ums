@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Admission Form</title>
+    <link rel="stylesheet" th:href="@{/css/admission.css}">
+</head>
+<body>
+
+    <div>
+        <div th:if="${param.success}">
+            <div class="alert alert-info">You've successfully registered</div>
+        </div>
+    </div>
+
+    <form th:action="@{/admission}" method="post" th:object="${admission}">
+        <h2>Admission Form</h2>
+
+        <div>
+            <label for="student_name">Student Name</label>
+            <input type="text" id="student_name" th:field="*{student_name}">
+            <div th:if="${#fields.hasErrors('student_name')}" th:errors="*{student_name}"></div>
+        </div>
+
+        <div>
+            <label for="father_name">Father Name</label>
+            <input type="text" id="father_name" th:field="*{father_name}">
+            <div th:if="${#fields.hasErrors('father_name')}" th:errors="*{father_name}"></div>
+        </div>
+
+        <div>
+            <label for="mother_name">Mother Name</label>
+            <input type="text" id="mother_name" th:field="*{mother_name}">
+            <div th:if="${#fields.hasErrors('mother_name')}" th:errors="*{mother_name}"></div>
+        </div>
+
+        <div>
+            <label for="course">Course</label>
+            <select id="course" th:field="*{course}">
+                <option value="btech">BTech</option>
+                <option value="mtech">MTech</option>
+                <option value="bsc">BSc</option>
+                <option value="msc">MSc</option>
+                <!-- Add other options as needed -->
+            </select>
+            <div th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></div>
+        </div>
+
+        <div>
+            <label for="religion">Religion</label>
+            <input type="text" id="religion" th:field="*{religion}">
+            <div th:if="${#fields.hasErrors('religion')}" th:errors="*{religion}"></div>
+        </div>
+
+        <div>
+            <label for="gender">Gender</label>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" id="male" name="gender" value="Male" th:field="*{gender}">
+                    <label for="male">Male</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="female" name="gender" value="Female" th:field="*{gender}">
+                    <label for="female">Female</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="others" name="gender" value="Others" th:field="*{gender}">
+                    <label for="others">Others</label>
+                </div>
+            </div>
+            <div th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div>
+        </div>
+
+        <div>
+            <label for="house_no">House Number</label>
+            <input type="text" id="house_no" th:field="*{house_no}">
+            <div th:if="${#fields.hasErrors('house_no')}" th:errors="*{house_no}"></div>
+        </div>
+
+        <div>
+            <label for="street_name">Street Name</label>
+            <input type="text" id="street_name" th:field="*{street_name}">
+            <div th:if="${#fields.hasErrors('street_name')}" th:errors="*{street_name}"></div>
+        </div>
+
+        <div>
+            <label for="city">City</label>
+            <input type="text" id="city" th:field="*{city}">
+            <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></div>
+        </div>
+
+        <div>
+            <label for="state">State</label>
+            <input type="text" id="state" th:field="*{state}">
+            <div th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></div>
+        </div>
+
+        <div>
+            <label for="country">Country</label>
+            <input type="text" id="country" th:field="*{country}">
+            <div th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
+        </div>
+
+        <div>
+            <label for="pin_code">Pincode</label>
+            <input type="text" id="pin_code" th:field="*{pin_code}">
+            <div th:if="${#fields.hasErrors('pin_code')}" th:errors="*{pin_code}"></div>
+        </div>
+
+        <div>
+            <label for="student_phone_no">Student Phone Number</label>
+            <input type="text" id="student_phone_no" th:field="*{student_phone_no}">
+            <div th:if="${#fields.hasErrors('student_phone_no')}" th:errors="*{student_phone_no}"></div>
+        </div>
+
+        <div>
+            <label for="parent_phone_no">Parent Phone Number</label>
+            <input type="text" id="parent_phone_no" th:field="*{parent_phone_no}">
+            <div th:if="${#fields.hasErrors('parent_phone_no')}" th:errors="*{parent_phone_no}"></div>
+        </div>
+
+        <div>
+            <label for="student_email">Student Email</label>
+            <input type="text" id="student_email" th:field="*{student_email}">
+            <div th:if="${#fields.hasErrors('student_email')}" th:errors="*{student_email}"></div>
+        </div>
+
+        <div>
+            <label for="parent_email">Parent Email</label>
+            <input type="text" id="parent_email" th:field="*{parent_email}">
+            <div th:if="${#fields.hasErrors('parent_email')}" th:errors="*{parent_email}"></div>
+        </div>
+
+        <div>
+            <label for="category">Category</label>
+            <select id="category" th:field="*{category}">
+                <option value="gen">General</option>
+                <option value="obc">OBC</option>
+                <option value="sc">SC</option>
+                <option value="st">ST</option>
+                <!-- Add other options as needed -->
+            </select>
+            <div th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+        </div>
+
+        <div>
+            <label for="high_school_board">High School Board</label>
+            <input type="text" id="high_school_board" th:field="*{high_school_board}">
+            <div th:if="${#fields.hasErrors('high_school_board')}" th:errors="*{high_school_board}"></div>
+        </div>
+
+        <div>
+            <label for="high_school_year_of_passing">High School Year of Passing</label>
+            <input type="text" id="high_school_year_of_passing" th:field="*{high_school_year_of_passing}">
+            <div th:if="${#fields.hasErrors('high_school_year_of_passing')}" th:errors="*{high_school_year_of_passing}"></div>
+        </div>
+
+        <div>
+            <label for="high_school_marks">High School Marks</label>
+            <input type="text" id="high_school_marks" th:field="*{high_school_marks}">
+            <div th:if="${#fields.hasErrors('high_school_marks')}" th:errors="*{high_school_marks}"></div>
+        </div>
+
+        <div>
+            <label for="intermediate_board">Intermediate Board</label>
+            <input type="text" id="intermediate_board" th:field="*{intermediate_board}">
+            <div th:if="${#fields.hasErrors('intermediate_board')}" th:errors="*{intermediate_board}"></div>
+        </div>
+
+        <div>
+            <label for="intermediate_year_of_passing">Intermediate Year of Passing</label>
+            <input type="text" id="intermediate_year_of_passing" th:field="*{intermediate_year_of_passing}">
+            <div th:if="${#fields.hasErrors('intermediate_year_of_passing')}" th:errors="*{intermediate_year_of_passing}"></div>
+        </div>
+
+        <div>
+            <label for="intermediate_marks">Intermediate Marks</label>
+            <input type="text" id="intermediate_marks" th:field="*{intermediate_marks}">
+            <div th:if="${#fields.hasErrors('intermediate_marks')}" th:errors="*{intermediate_marks}"></div>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
