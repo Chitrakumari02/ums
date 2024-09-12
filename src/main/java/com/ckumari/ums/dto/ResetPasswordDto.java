@@ -1,48 +1,33 @@
-package com.gmaurya.ums.dto;
+package com.ckumari.ums.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class ResetPasswordDto {
 
+	// Fields with appropriate validation annotations
 	@Email(message = "Email should be valid")
-    @NotBlank(message = "Email is required")
+	@NotBlank(message = "Email is required")
 	private String email;
-	
+
 	@NotBlank(message = "Password cannot be blank")
 	@Size(min = 6, message = "Password should have at least 6 characters")
-	private String new_password;
+	private String newPassword; // Renamed field
 
-	//Getter and Setter
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getNew_password() {
-		return new_password;
-	}
-
-	public void setNew_password(String new_password) {
-		this.new_password = new_password;
-	}
-
-	//Parameterized constructor
+	// Parameterized constructor
 	public ResetPasswordDto(
 			@Email(message = "Email should be valid") @NotBlank(message = "Email is required") String email,
-			@NotBlank(message = "Password cannot be blank") @Size(min = 6, message = "Password should have at least 6 characters") String new_password) {
-		super();
+			@NotBlank(message = "Password cannot be blank") @Size(min = 6, message = "Password should have at least 6 characters") String newPassword) {
 		this.email = email;
-		this.new_password = new_password;
+		this.newPassword = newPassword;
 	}
 
+	// Default constructor
 	public ResetPasswordDto() {
-		// TODO Auto-generated constructor stub
 	}
-	
-	
 }

@@ -1,7 +1,7 @@
-package com.gmaurya.ums.controller;
+package com.ckumari.ums.controller;
 
-import com.gmaurya.ums.dto.ForgotPasswordDto;
-import com.gmaurya.ums.service.RegistrationService;
+import com.ckumari.ums.dto.ForgotPasswordDto;
+import com.ckumari.ums.service.RegistrationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/forgot-password")
 public class ForgotPasswordController {
 
-    private RegistrationService registrationService;
+    private final RegistrationService registrationService;
 
     public ForgotPasswordController(RegistrationService registrationService) {
 		super();

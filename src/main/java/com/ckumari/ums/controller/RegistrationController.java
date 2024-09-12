@@ -1,5 +1,6 @@
 package com.ckumari.ums.controller;
 
+import com.ckumari.ums.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.ckumari.ums.dto.RegistrationDto;
-import com.ckumari.ums.service.RegistrationService;
+
 import javax.validation.Valid;
 
 @Controller

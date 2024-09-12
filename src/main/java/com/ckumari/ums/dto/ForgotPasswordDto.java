@@ -1,87 +1,50 @@
-package com.gmaurya.ums.dto;
+package com.ckumari.ums.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class ForgotPasswordDto {
 
-	@Email(message = "Email should be valid")
+    // Getters and Setters
+    @Email(message = "Email should be valid")
     @NotBlank(message = "Email is required")
-	private String email;
-	
-	@NotBlank(message = "Password cannot be blank")
-	@Size(min = 6, message = "Password should have at least 6 characters")
-	private String password;
-	
-	@NotBlank(message = "Question 1 cannot be blank")
-	private String question_1;
-	
-	@NotBlank(message = "Question 2 cannot be blank")
-	private String question_2;
-	
-	@NotBlank(message = "Question 3 cannot be blank")
-	private String question_3;
+    private String email;
 
-	//Getter and Setter
-	public String getEmail() {
-		return email;
-	}
+    @NotBlank(message = "Password cannot be blank")
+    @Size(min = 6, message = "Password should have at least 6 characters")
+    private String password;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    @NotBlank(message = "Security question 1 cannot be blank")
+    private String question1;
 
-	public String getPassword() {
-		return password;
-	}
+    @NotBlank(message = "Security question 2 cannot be blank")
+    private String question2;
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    @NotBlank(message = "Security question 3 cannot be blank")
+    private String question3;
 
-	public String getQuestion_1() {
-		return question_1;
-	}
+    // Default constructor
+    public ForgotPasswordDto() {
+        // Default constructor for serialization/deserialization
+    }
 
-	public void setQuestion_1(String question_1) {
-		this.question_1 = question_1;
-	}
+    // Parameterized constructor
+    public ForgotPasswordDto(
+            @Email(message = "Email should be valid") @NotBlank(message = "Email is required") String email,
+            @NotBlank(message = "Password cannot be blank") @Size(min = 6, message = "Password should have at least 6 characters") String password,
+            @NotBlank(message = "Security question 1 cannot be blank") String question1,
+            @NotBlank(message = "Security question 2 cannot be blank") String question2,
+            @NotBlank(message = "Security question 3 cannot be blank") String question3) {
+        this.email = email;
+        this.password = password;
+        this.question1 = question1;
+        this.question2 = question2;
+        this.question3 = question3;
+    }
 
-	public String getQuestion_2() {
-		return question_2;
-	}
-
-	public void setQuestion_2(String question_2) {
-		this.question_2 = question_2;
-	}
-
-	public String getQuestion_3() {
-		return question_3;
-	}
-
-	public void setQuestion_3(String question_3) {
-		this.question_3 = question_3;
-	}
-
-	//parameterized constructor
-	public ForgotPasswordDto(
-			@Email(message = "Email should be valid") @NotBlank(message = "Email is required") String email,
-			@NotBlank(message = "Password cannot be blank") @Size(min = 6, message = "Password should have at least 6 characters") String password,
-			@NotBlank(message = "Question 1 cannot be blank") String question_1,
-			@NotBlank(message = "Question 2 cannot be blank") String question_2,
-			@NotBlank(message = "Question 3 cannot be blank") String question_3) {
-		super();
-		this.email = email;
-		this.password = password;
-		this.question_1 = question_1;
-		this.question_2 = question_2;
-		this.question_3 = question_3;
-	}
-
-	public ForgotPasswordDto() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	
 }

@@ -1,13 +1,19 @@
 package com.ckumari.ums.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+@Setter
+@Getter
 public class RegistrationDto {
 
+    // Getters and Setters
     @NotBlank(message = "First name is required")
     private String firstName;
 
@@ -49,13 +55,24 @@ public class RegistrationDto {
 
     private String designation;
 
+    // Add fields for security questions
+    @NotBlank(message = "Security question 1 is required")
+    private String question1;
+
+    @NotBlank(message = "Security question 2 is required")
+    private String question2;
+
+    @NotBlank(message = "Security question 3 is required")
+    private String question3;
+
     // Default constructor
     public RegistrationDto() {}
 
     // Parameterized constructor
-    public RegistrationDto(String firstName, String middleName, String lastName, String email, String password, 
-                           String houseNumber, String streetName, String city, String state, String country, 
-                           String pinCode, String phoneNo, String designation) {
+    public RegistrationDto(String firstName, String middleName, String lastName, String email, String password,
+                           String houseNumber, String streetName, String city, String state, String country,
+                           String pinCode, String phoneNo, String designation,
+                           String question1, String question2, String question3) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -69,110 +86,9 @@ public class RegistrationDto {
         this.pinCode = pinCode;
         this.phoneNo = phoneNo;
         this.designation = designation;
+        this.question1 = question1;
+        this.question2 = question2;
+        this.question3 = question3;
     }
 
-    // Getters and Setters
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getHouseNumber() {
-        return houseNumber;
-    }
-
-    public void setHouseNumber(String houseNumber) {
-        this.houseNumber = houseNumber;
-    }
-
-    public String getStreetName() {
-        return streetName;
-    }
-
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getPinCode() {
-        return pinCode;
-    }
-
-    public void setPinCode(String pinCode) {
-        this.pinCode = pinCode;
-    }
-
-    public String getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    public String getDesignation() {
-        return designation;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
 }

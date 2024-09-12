@@ -49,13 +49,15 @@
             margin-right: 5px;
         }
         .desgn-div,
-        .address-div {
+        .address-div,
+        .security-question {
             margin-bottom: 15px;
         }
         .desgn-div label,
-        .address-div label {
-            display: inline-block;
-            margin-right: 10px;
+        .address-div label,
+        .security-question label {
+            display: block;
+            margin-bottom: 5px;
         }
         .btn-div {
             display: flex;
@@ -91,85 +93,103 @@
     </style>
 </head>
 <body>
-    <h1>REGISTRATION</h1>
-    <div>
-        <!-- Success message -->
-        <div th:if="${param.success}">
-            <div class="alert">You've successfully registered</div>
-        </div>
+<h1>REGISTRATION</h1>
+<div>
+    <!-- Success message -->
+    <div th:if="${param.success}">
+        <div class="alert">You've successfully registered</div>
     </div>
-    <form th:action="@{/registration}" method="post" th:object="${registration}">
-        <div class="desgn-div">
-            <label for="designation">Designation:</label>
-            <label for="desgn-ms">
-                <input id="desgn-ms" type="radio" name="designation" th:value="'Ms'" th:field="*{designation}" /> Ms
-            </label>
-            <label for="desgn-miss">
-                <input id="desgn-miss" type="radio" name="designation" th:value="'Miss'" th:field="*{designation}" /> Miss
-            </label>
-        </div>
-        <div>
-            <label for="firstName">First Name:</label>
-            <input id="firstName" name="firstName" type="text" th:field="*{firstName}" required />
-            <div class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</div>
-        </div>
-        <div>
-            <label for="middleName">Middle Name:</label>
-            <input id="middleName" name="middleName" type="text" th:field="*{middleName}" />
-        </div>
-        <div>
-            <label for="lastName">Last Name:</label>
-            <input id="lastName" name="lastName" type="text" th:field="*{lastName}" required />
-            <div class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</div>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input id="email" name="email" type="email" th:field="*{email}" required />
-            <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input id="password" name="password" type="password" th:field="*{password}" required />
-            <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
-        </div>
-        <div class="address-div">
-            <label for="houseNumber">House Number/Building Name:</label>
-            <input id="houseNumber" name="houseNumber" type="text" th:field="*{houseNumber}" required />
-            <div class="error" th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}">House Number Error</div>
-        </div>
-        <div class="address-div">
-            <label for="streetName">Street Name/Area/Locality:</label>
-            <input id="streetName" name="streetName" type="text" th:field="*{streetName}" required />
-            <div class="error" th:if="${#fields.hasErrors('streetName')}" th:errors="*{streetName}">Street Name Error</div>
-        </div>
-        <div class="address-div">
-            <label for="city">City/Town/Village:</label>
-            <input id="city" name="city" type="text" th:field="*{city}" required />
-            <div class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">City Error</div>
-        </div>
-        <div class="address-div">
-            <label for="state">State:</label>
-            <input id="state" name="state" type="text" th:field="*{state}" required />
-            <div class="error" th:if="${#fields.hasErrors('state')}" th:errors="*{state}">State Error</div>
-        </div>
-        <div class="address-div">
-            <label for="country">Country:</label>
-            <input id="country" name="country" type="text" th:field="*{country}" required />
-            <div class="error" th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Country Error</div>
-        </div>
-        <div class="address-div">
-			<label for="pinCode">Pin Code:</label>
-			        <input id="pinCode" name="pinCode" type="text" th:field="*{pinCode}" required pattern="\d{6}" title="Pin code must be exactly 6 digits" />
-			        <div class="error" th:if="${#fields.hasErrors('pinCode')}" th:errors="*{pinCode}">Pin Code Error</div>
-        </div>
-        <div>
-            <label for="phoneNo">Phone Number:</label>
-            <input id="phoneNo" name="phoneNo" type="text" th:field="*{phoneNo}" required pattern="^[6-9]\d{9}$" title="Phone number should be exactly 10 digits and start with 6, 7, 8, or 9" />
-            <div class="error" th:if="${#fields.hasErrors('phoneNo')}" th:errors="*{phoneNo}">Phone Number Error</div>
-        </div>
-        <div class="btn-div">
-            <button type="submit">Register</button>
-        </div>
-    </form>
+</div>
+<form th:action="@{/registration}" method="post" th:object="${registration}">
+    <div class="desgn-div">
+        <label for="designation">Designation:</label>
+        <label for="desgn-ms">
+            <input id="desgn-ms" type="radio" name="designation" th:value="'Ms'" th:field="*{designation}" /> Ms
+        </label>
+        <label for="desgn-miss">
+            <input id="desgn-miss" type="radio" name="designation" th:value="'Miss'" th:field="*{designation}" /> Miss
+        </label>
+    </div>
+    <div>
+        <label for="firstName">First Name:</label>
+        <input id="firstName" name="firstName" type="text" th:field="*{firstName}" required />
+        <div class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</div>
+    </div>
+    <div>
+        <label for="middleName">Middle Name:</label>
+        <input id="middleName" name="middleName" type="text" th:field="*{middleName}" />
+    </div>
+    <div>
+        <label for="lastName">Last Name:</label>
+        <input id="lastName" name="lastName" type="text" th:field="*{lastName}" required />
+        <div class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</div>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input id="email" name="email" type="email" th:field="*{email}" required />
+        <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input id="password" name="password" type="password" th:field="*{password}" required />
+        <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+    </div>
+    <div class="address-div">
+        <label for="houseNumber">House Number/Building Name:</label>
+        <input id="houseNumber" name="houseNumber" type="text" th:field="*{houseNumber}" required />
+        <div class="error" th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}">House Number Error</div>
+    </div>
+    <div class="address-div">
+        <label for="streetName">Street Name/Area/Locality:</label>
+        <input id="streetName" name="streetName" type="text" th:field="*{streetName}" required />
+        <div class="error" th:if="${#fields.hasErrors('streetName')}" th:errors="*{streetName}">Street Name Error</div>
+    </div>
+    <div class="address-div">
+        <label for="city">City/Town/Village:</label>
+        <input id="city" name="city" type="text" th:field="*{city}" required />
+        <div class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">City Error</div>
+    </div>
+    <div class="address-div">
+        <label for="state">State:</label>
+        <input id="state" name="state" type="text" th:field="*{state}" required />
+        <div class="error" th:if="${#fields.hasErrors('state')}" th:errors="*{state}">State Error</div>
+    </div>
+    <div class="address-div">
+        <label for="country">Country:</label>
+        <input id="country" name="country" type="text" th:field="*{country}" required />
+        <div class="error" th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Country Error</div>
+    </div>
+    <div class="address-div">
+        <label for="pinCode">Pin Code:</label>
+        <input id="pinCode" name="pinCode" type="text" th:field="*{pinCode}" required pattern="\d{6}" title="Pin code must be exactly 6 digits" />
+        <div class="error" th:if="${#fields.hasErrors('pinCode')}" th:errors="*{pinCode}">Pin Code Error</div>
+    </div>
+    <div>
+        <label for="phoneNo">Phone Number:</label>
+        <input id="phoneNo" name="phoneNo" type="text" th:field="*{phoneNo}" required pattern="^[6-9]\d{9}$" title="Phone number should be exactly 10 digits and start with 6, 7, 8, or 9" />
+        <div class="error" th:if="${#fields.hasErrors('phoneNo')}" th:errors="*{phoneNo}">Phone Number Error</div>
+    </div>
+
+    <!-- Security Questions -->
+    <div class="security-question">
+        <label for="question1">What was the name of your first pet?</label>
+        <input id="question1" name="question1" type="text" th:field="*{question1}" required />
+        <div class="error" th:if="${#fields.hasErrors('question1')}" th:errors="*{question1}">Question 1 Error</div>
+    </div>
+    <div class="security-question">
+        <label for="question2">What is the name of the city where you were born?</label>
+        <input id="question2" name="question2" type="text" th:field="*{question2}" required />
+        <div class="error" th:if="${#fields.hasErrors('question2')}" th:errors="*{question2}">Question 2 Error</div>
+    </div>
+    <div class="security-question">
+        <label for="question3">What is your mother’s maiden name?</label>
+        <input id="question3" name="question3" type="text" th:field="*{question3}" required />
+        <div class="error" th:if="${#fields.hasErrors('question3')}" th:errors="*{question3}">Question 3 Error</div>
+    </div>
+
+    <div class="btn-div">
+        <button type="submit">Register</button>
+    </div>
+</form>
 </body>
 </html>
