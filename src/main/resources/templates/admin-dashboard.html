@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* Header Styles */
+    header {
+      background: #333;
+      color: #fff;
+      padding: 1rem 0;
+    }
+
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 span {
+      color: #f44336;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav ul li {
+      display: inline;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    nav ul li a:hover {
+      background: #f44336;
+    }
+
+    /* Main Content Styles */
+    main {
+      padding: 2rem 0;
+      background: #f4f4f4;
+    }
+
+    main h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    main p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>Hi, <span th:text="${adminName}">Admin</span>!</h1>
+    <nav>
+      <ul>
+        <li><a th:href="@{/admin-add-course}">Courses</a></li>
+        <li><a th:href="@{/student-list-admission}">Admission</a></li>
+        <li><a th:href="@{/admin/timetable/add}">Time-table</a></li>
+        <li><a th:href="@{/schedule}">Schedule</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="container">
+    <h2>Welcome to your admin dashboard</h2>
+    <p>Here you can manage courses, check admission status, add timetable entries, and view schedules.</p>
+  </div>
+</main>
+</body>
+</html>

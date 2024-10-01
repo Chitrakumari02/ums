@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    /* Styling for View Details links */
+    a {
+      color: #ffffff;  /* Modern blue tone for default link color */
+      text-decoration: none;
+      transition: color 0.3s ease; /* Smooth color transition */
+    }
+
+    a:hover {
+      color: #1558b0;  /* Darker blue on hover */
+    }
+
+    a:active {
+      color: #6a0dad;  /* Modern purple when clicked (active state) */
+    }
+
+    a:visited {
+      color: #6a0dad;  /* Modern purple once the link has been visited */
+    }
+
+    /* Styling for Go Back to Faculty Dashboard Button */
+    .btn-back {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .btn-faculty-dashboard {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: #ffffff;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-faculty-dashboard:hover {
+      background-color: #2980b9;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+<h1>Student List</h1>
+<table border="1">
+  <thead>
+  <tr>
+    <th>Student Name</th>
+    <th>Phone No</th>
+    <th>Email</th>
+    <th>Details</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="admission : ${admissions}">
+    <td th:text="${admission.student_name}"></td>
+    <td th:text="${admission.student_phone_no}"></td>
+    <td th:text="${admission.student_email}"></td>
+    <td>
+      <a th:href="@{/students-details-admission/{application_form_no}(application_form_no=${admission.application_form_no})}">View Details</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Go Back to Faculty Dashboard Button -->
+<div class="btn-back">
+  <a th:href="@{/faculty-dashboard}" class="btn-faculty-dashboard">Go Back to Faculty Dashboard</a>
+</div>
+</body>
+</html>

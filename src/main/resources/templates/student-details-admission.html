@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Details</title>
+  <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* Header Styles */
+    header {
+      background: #333;
+      color: #fff;
+      padding: 1rem 0;
+    }
+
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 span {
+      color: #f44336;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav ul li {
+      display: inline;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    nav ul li a:hover {
+      background: #f44336;
+    }
+
+    /* Main Content Styles */
+    main {
+      padding: 2rem 0;
+      background: #f4f4f4;
+    }
+
+    main h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    main p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Styling for Student Details Table */
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    thead {
+      background-color: #f2f2f2;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
+
+    td {
+      background-color: #fff;
+    }
+
+    table img {
+      max-width: 100px; /* Adjust as necessary */
+      height: auto;
+      display: block;
+      margin: 10px auto;
+    }
+
+    /* Ensure default styling for Marksheet Download links */
+    a {
+      color: #007BFF; /* Standard link color */
+      text-decoration: underline; /* Ensure underline on normal links */
+    }
+
+    a:hover {
+      color: #0056b3; /* Darker color on hover */
+      text-decoration: underline; /* Keep underline on hover */
+    }
+
+    a:visited {
+      color: #551A8B; /* Purple for visited links */
+    }
+
+    /* Styling for Back to List Button */
+    .btn-back-to-list {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #3498db; /* Button background color */
+      color: #ffffff; /* Button text color */
+      border-radius: 5px; /* Rounded corners */
+      text-decoration: none; /* Remove underline */
+      font-size: 16px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-back-to-list:hover {
+      transform: scale(1.02); /* Slight button scale on hover */
+      text-decoration:none;
+    }
+
+    .btn-back-to-list:active {
+      background-color: #1e6f94; /* Even darker background when clicked */
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>Hi <span th:text="${studentName}">Student</span>!</h1>
+    <nav>
+      <ul>
+        <li><a th:href="@{/courses}" href="/course">Course</a></li>
+        <li><a th:href="@{/admission-personal-info}" href="/admission-personal-info">Admission</a></li>
+        <li><a th:href="@{/timetable}" href="/timetable">Time-table</a></li>
+        <li><a th:href="@{/schedule}" href="/schedule">Schedule</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="container">
+    <h2>Welcome to your student dashboard</h2>
+    <p>Here you can manage your courses, check your admission status, view your timetable, and keep track of your schedule.</p>
+  </div>
+</main>
+<h1>Student Details</h1>
+
+<!-- Student Details Table -->
+<table>
+  <thead>
+  <tr>
+    <th>Field</th>
+    <th>Details</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Name</td>
+    <td th:text="${admission.student_name}"></td>
+  </tr>
+  <tr>
+    <td>Father Name</td>
+    <td th:text="${admission.father_name}"></td>
+  </tr>
+  <tr>
+    <td>Mother Name</td>
+    <td th:text="${admission.mother_name}"></td>
+  </tr>
+  <tr>
+    <td>Date of Birth</td>
+    <td th:text="${admission.date_of_birth}"></td>
+  </tr>
+  <tr>
+    <td>Religion</td>
+    <td th:text="${admission.religion}"></td>
+  </tr>
+  <tr>
+    <td>Gender</td>
+    <td th:text="${admission.gender}"></td>
+  </tr>
+  <tr>
+    <td>Address</td>
+    <td th:text="${admission.house_no + ', ' + admission.street_name + ', ' + admission.city + ', ' + admission.state + ', ' + admission.country + ' - ' + admission.pin_code}"></td>
+  </tr>
+  <tr>
+    <td>Phone Number</td>
+    <td th:text="${admission.student_phone_no}"></td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td th:text="${admission.student_email}"></td>
+  </tr>
+  <tr>
+    <td>High School Board</td>
+    <td th:text="${admission.high_school_board}"></td>
+  </tr>
+  <tr>
+    <td>High School Year of Passing</td>
+    <td th:text="${admission.high_school_year_of_passing}"></td>
+  </tr>
+  <tr>
+    <td>High School Marks</td>
+    <td th:text="${admission.high_school_marks}"></td>
+  </tr>
+  <tr>
+    <td>Intermediate Board</td>
+    <td th:text="${admission.intermediate_board}"></td>
+  </tr>
+  <tr>
+    <td>Intermediate Year of Passing</td>
+    <td th:text="${admission.intermediate_year_of_passing}"></td>
+  </tr>
+  <tr>
+    <td>Intermediate Marks</td>
+    <td th:text="${admission.intermediate_marks}"></td>
+  </tr>
+  <tr>
+    <td>Degree</td>
+    <td th:text="${admission.degree}"></td>
+  </tr>
+  <tr>
+    <td>Stream</td>
+    <td th:text="${admission.stream}"></td>
+  </tr>
+  <tr>
+    <td>Course</td>
+    <td th:text="${admission.course}"></td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Display student image -->
+<p><strong>Student Image:</strong></p>
+<img th:src="@{/student-image/{application_form_no}(application_form_no=${admission.application_form_no})}" alt="Student Image" />
+
+<!-- Provide links to mark sheets -->
+<p><strong>High School Marksheet:</strong>
+  <a th:href="@{/high-school-marksheet/{application_form_no}(application_form_no=${admission.application_form_no})}" download="high_school_marksheet.pdf">Download High School Marksheet</a>
+</p>
+<p><strong>Intermediate Marksheet:</strong>
+  <a th:href="@{/intermediate-marksheet/{application_form_no}(application_form_no=${admission.application_form_no})}" download="intermediate_marksheet.pdf">Download Intermediate Marksheet</a>
+</p>
+
+<!-- Back to List Button -->
+<a class="btn-back-to-list" th:href="@{/student-list-admission}">Back to List</a>
+</body>
+</html>

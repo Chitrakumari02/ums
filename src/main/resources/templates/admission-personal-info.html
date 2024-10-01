@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Information</title>
+  <style>
+    /* Container Styling */
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* Heading Styling */
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333333;
+    }
+
+    h3 {
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: #666666;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+    }
+
+    /* Form Group Styling */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #444444;
+    }
+
+    .required::after {
+      content: " *";
+      color: red;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus,
+    select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    /* Radio Group Styling */
+    .radio-group {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .radio-item {
+      display: inline-block;
+      font-size: 16px;
+      color: #444444;
+      margin-bottom: 10px; /* Added margin for better spacing */
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    /* Error Message Styling */
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    /* Button Styling */
+    .btn-div {
+      text-align: right;
+    }
+
+    .btn-next {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .btn-next:hover {
+      background-color: #0056b3;
+    }
+
+    /* Media Query for Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+        margin: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .btn-next {
+        width: 100%;
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Admission Form</h2>
+  <form th:action="@{/admission-personal-info}" method="post" th:object="${admission}" enctype="multipart/form-data">
+    <h3>Personal Information</h3>
+
+    <div class="form-group">
+      <label class="required" for="student_name">Student Name</label>
+      <input type="text" id="student_name" th:field="*{student_name}" name="student_name" aria-required="true">
+      <div class="error" th:if="${#fields.hasErrors('student_name')}" th:errors="*{student_name}"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="required" for="father_name">Father Name</label>
+      <input type="text" id="father_name" th:field="*{father_name}" name="father_name" aria-required="true">
+      <div class="error" th:if="${#fields.hasErrors('father_name')}" th:errors="*{father_name}"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="required" for="mother_name">Mother Name</label>
+      <input type="text" id="mother_name" th:field="*{mother_name}" name="mother_name" aria-required="true">
+      <div class="error" th:if="${#fields.hasErrors('mother_name')}" th:errors="*{mother_name}"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="required" for="date_of_birth">Date of Birth</label>
+      <input type="date" id="date_of_birth" th:field="*{date_of_birth}" name="date_of_birth" aria-required="true">
+      <div class="error" th:if="${#fields.hasErrors('date_of_birth')}" th:errors="*{date_of_birth}"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="required">Gender</label>
+      <div class="radio-group">
+        <label class="radio-item">
+          <input type="radio" id="male" name="gender" value="Male" th:field="*{gender}" aria-required="true"> Male
+        </label>
+        <label class="radio-item">
+          <input type="radio" id="female" name="gender" value="Female" th:field="*{gender}" aria-required="true"> Female
+        </label>
+        <label class="radio-item">
+          <input type="radio" id="others" name="gender" value="Others" th:field="*{gender}" aria-required="true"> Others
+        </label>
+      </div>
+      <div class="error" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="required" for="religion">Religion</label>
+      <input type="text" id="religion" th:field="*{religion}" name="religion" aria-required="true">
+      <div class="error" th:if="${#fields.hasErrors('religion')}" th:errors="*{religion}"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="required" for="house_no">House Number</label>
+      <input type="text" id="house_no" th:field="*{house_no}" name="house_no" aria-required="true">
+      <div class="error" th:if="${#fields.hasErrors('house_no')}" th:errors="*{house_no}"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="required" for="street_name">Street Name</label>
+      <input type="text" id="street_name" th:field="*{street_name}" name="street_name" aria-required="true">
+      <div class="error" th:if="${#fields.hasErrors('street_name')}" th:errors="*{street_name}"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="required" for="city">City</label>
+      <input type="text" id="city" th:field="*{city}" name="city" aria-required="true">
+      <div class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="required" for="state">State</label>
+      <input type="text" id="state" th:field="*{state}" name="state" aria-required="true">
+      <div class="error" th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="required" for="country">Country</label>
+      <input type="text" id="country" th:field="*{country}" name="country" aria-required="true">
+      <div class="error" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="required" for="pin_code">Pin-code</label>
+      <input type="text" id="pin_code" th:field="*{pin_code}" name="pin_code" aria-required="true">
+      <div class="error" th:if="${#fields.hasErrors('pin_code')}" th:errors="*{pin_code}"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="required" for="student_image">Upload Student Image</label>
+      <input type="file" id="student_image" th:field="*{student_image}" name="student_image" aria-required="true">
+      <div class="error" th:if="${#fields.hasErrors('student_image')}" th:errors="*{student_image}"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="required" for="category">Category</label>
+      <select id="category" th:field="*{category}" name="category" aria-required="true">
+        <option value="">Select</option>
+        <option value="General">General</option>
+        <option value="OBC">OBC</option>
+        <option value="SC">SC</option>
+        <option value="ST">ST</option>
+      </select>
+      <div class="error" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+    </div>
+
+    <div class="form-group btn-div">
+      <button type="submit" class="btn-next">Next</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Education Information</title>
+  <style>
+    /* Container Styling */
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* Heading Styling */
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333333;
+    }
+
+    h3 {
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: #666666;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+    }
+
+    /* Form Group Styling */
+    div {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #444444;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus, select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    /* Error Message Styling */
+    div > div {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    /* Button Styling */
+    button {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      display: block;
+      margin: 0 auto;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    /* Dynamic Fields Styling */
+    #course-field, #streams-field {
+      display: none; /* Initially hidden */
+      margin-top: 20px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    #course-field select, #streams-field select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+
+    #course-field select:focus, #streams-field select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    /* Fade-in Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+  <script th:src="@{/js/admission-education-info.js}" defer></script>
+</head>
+<body>
+<div class="container">
+  <h2>Admission Form</h2>
+  <form th:action="@{/admission-education-info}" method="post" th:object="${admission}" enctype="multipart/form-data">
+    <h3>Education Information</h3>
+
+    <div>
+      <label for="high_school_board">High School Board</label>
+      <input type="text" id="high_school_board" th:field="*{high_school_board}" required>
+      <div th:if="${#fields.hasErrors('high_school_board')}" th:errors="*{high_school_board}"></div>
+    </div>
+
+    <div>
+      <label for="high_school_year_of_passing">High School Year of Passing</label>
+      <input type="text" id="high_school_year_of_passing" th:field="*{high_school_year_of_passing}" required>
+      <div th:if="${#fields.hasErrors('high_school_year_of_passing')}" th:errors="*{high_school_year_of_passing}"></div>
+    </div>
+
+    <div>
+      <label for="high_school_marks">High School Marks</label>
+      <input type="text" id="high_school_marks" th:field="*{high_school_marks}" required>
+      <div th:if="${#fields.hasErrors('high_school_marks')}" th:errors="*{high_school_marks}"></div>
+    </div>
+
+    <div>
+      <label for="intermediate_board">Intermediate Board</label>
+      <input type="text" id="intermediate_board" th:field="*{intermediate_board}" required>
+      <div th:if="${#fields.hasErrors('intermediate_board')}" th:errors="*{intermediate_board}"></div>
+    </div>
+
+    <div>
+      <label for="intermediate_year_of_passing">Intermediate Year of Passing</label>
+      <input type="text" id="intermediate_year_of_passing" th:field="*{intermediate_year_of_passing}" required>
+      <div th:if="${#fields.hasErrors('intermediate_year_of_passing')}" th:errors="*{intermediate_year_of_passing}"></div>
+    </div>
+
+    <div>
+      <label for="intermediate_marks">Intermediate Marks</label>
+      <input type="text" id="intermediate_marks" th:field="*{intermediate_marks}" required>
+      <div th:if="${#fields.hasErrors('intermediate_marks')}" th:errors="*{intermediate_marks}"></div>
+    </div>
+
+    <div>
+      <label for="degree">Degree</label>
+      <select id="degree" name="degree" th:field="*{degree}" onchange="showFields()" required>
+        <option value="">Select Degree</option>
+        <option value="undergraduate">Undergraduate</option>
+        <option value="postgraduate">Postgraduate</option>
+      </select>
+      <div th:if="${#fields.hasErrors('degree')}" th:errors="*{degree}"></div>
+    </div>
+
+    <div id="course-field" style="display:none;">
+      <label for="course">Course</label>
+      <select id="course" name="course" th:field="*{course}" required>
+        <option value="">Select a Course</option> <!-- Placeholder option -->
+        <!-- Options will be dynamically added here -->
+      </select>
+      <div th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></div>
+    </div>
+
+    <div id="streams-field" style="display:none;">
+      <label for="streams">Streams</label>
+      <select id="streams" name="streams" th:field="*{stream}" required>
+        <option value="">Select a Stream</option> <!-- Placeholder option -->
+        <!-- Options will be dynamically added here -->
+      </select>
+      <div th:if="${#fields.hasErrors('stream')}" th:errors="*{stream}"></div>
+    </div>
+
+    <div>
+      <label for="high_school_marksheet">Upload High School Marksheet</label>
+      <input type="file" id="high_school_marksheet" th:field="*{high_school_marksheet}" required>
+      <div th:if="${#fields.hasErrors('high_school_marksheet')}" th:errors="*{high_school_marksheet}"></div>
+    </div>
+
+    <div>
+      <label for="intermediate_marksheet">Upload Intermediate Marksheet</label>
+      <input type="file" id="intermediate_marksheet" th:field="*{intermediate_marksheet}" required>
+      <div th:if="${#fields.hasErrors('intermediate_marksheet')}" th:errors="*{intermediate_marksheet}"></div>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+</body>
+</html>

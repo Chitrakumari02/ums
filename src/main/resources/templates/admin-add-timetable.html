@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Timetable Entry</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input[type="text"],
+        select {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button[type="submit"],
+        .back-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover,
+        .back-btn:hover {
+            background-color: #45a049;
+        }
+
+        .period-block {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background-color: #f44336;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<h2>Add Timetable Entry</h2>
+
+<form action="#" th:action="@{/admin/timetable/save}" method="post" th:object="${timetableEntry}">
+    <!-- Periods 1 to 8 - similar blocks as before -->
+
+    <!-- Example for Period 1 -->
+    <div class="period-block">
+        <h3>Period 1</h3>
+        <label>Course:
+            <select th:field="*{periods[0].course}">
+                <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+            </select>
+        </label><br>
+        <label>Class Section:
+            <select th:field="*{periods[0].classSection}">
+                <option th:each="section : ${sections}" th:value="${section.id}" th:text="${section.name}"></option>
+            </select>
+        </label><br>
+        <label>Subject:
+            <input type="text" th:field="*{periods[0].subject}" required>
+        </label><br>
+        <label>Teacher:
+            <input type="text" th:field="*{periods[0].teacher}" required>
+        </label><br>
+        <label>Classroom:
+            <input type="text" th:field="*{periods[0].classroom}" required>
+        </label><br>
+    </div>
+
+    <!-- Repeat for each period (2 to 8) -->
+
+    <!-- Period 2 -->
+    <div class="period-block">
+        <h3>Period 2</h3>
+        <label>Course:
+            <select th:field="*{periods[1].course}">
+                <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Class Section:
+            <select th:field="*{periods[1].classSection}">
+                <option th:each="section : ${sections}" th:value="${section.id}" th:text="${section.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Subject:
+            <input type="text" th:field="*{periods[1].subject}" required>
+        </label><br>
+
+        <label>Teacher:
+            <input type="text" th:field="*{periods[1].teacher}" required>
+        </label><br>
+
+        <label>Classroom:
+            <input type="text" th:field="*{periods[1].classroom}" required>
+        </label><br>
+    </div>
+
+    <!-- Add similar blocks for Period 3 to Period 8 -->
+
+    <!-- Period 3 -->
+    <div class="period-block">
+        <h3>Period 3</h3>
+        <label>Course:
+            <select th:field="*{periods[3].course}">
+                <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Class Section:
+            <select th:field="*{periods[3].classSection}">
+                <option th:each="section : ${sections}" th:value="${section.id}" th:text="${section.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Subject:
+            <input type="text" th:field="*{periods[3].subject}" required>
+        </label><br>
+
+        <label>Teacher:
+            <input type="text" th:field="*{periods[3].teacher}" required>
+        </label><br>
+
+        <label>Classroom:
+            <input type="text" th:field="*{periods[3].classroom}" required>
+        </label><br>
+    </div>
+    <!-- Period 4-->
+    <div class="period-block">
+        <h3>Period 4</h3>
+        <label>Course:
+            <select th:field="*{periods[4].course}">
+                <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Class Section:
+            <select th:field="*{periods[4].classSection}">
+                <option th:each="section : ${sections}" th:value="${section.id}" th:text="${section.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Subject:
+            <input type="text" th:field="*{periods[4].subject}" required>
+        </label><br>
+
+        <label>Teacher:
+            <input type="text" th:field="*{periods[4].teacher}" required>
+        </label><br>
+
+        <label>Classroom:
+            <input type="text" th:field="*{periods[4].classroom}" required>
+        </label><br>
+    </div>
+    <!-- Period 5 -->
+    <div class="period-block">
+        <h3>Period 5</h3>
+        <label>Course:
+            <select th:field="*{periods[5].course}">
+                <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Class Section:
+            <select th:field="*{periods[5].classSection}">
+                <option th:each="section : ${sections}" th:value="${section.id}" th:text="${section.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Subject:
+            <input type="text" th:field="*{periods[5].subject}" required>
+        </label><br>
+
+        <label>Teacher:
+            <input type="text" th:field="*{periods[5].teacher}" required>
+        </label><br>
+
+        <label>Classroom:
+            <input type="text" th:field="*{periods[5].classroom}" required>
+        </label><br>
+    </div>
+
+    <!-- Continue for Period 4 to 8 -->
+    <!-- Period 6 -->
+    <div class="period-block">
+        <h3>Period 6</h3>
+        <label>Course:
+            <select th:field="*{periods[6].course}">
+                <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Class Section:
+            <select th:field="*{periods[6].classSection}">
+                <option th:each="section : ${sections}" th:value="${section.id}" th:text="${section.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Subject:
+            <input type="text" th:field="*{periods[6].subject}" required>
+        </label><br>
+
+        <label>Teacher:
+            <input type="text" th:field="*{periods[6].teacher}" required>
+        </label><br>
+
+        <label>Classroom:
+            <input type="text" th:field="*{periods[6].classroom}" required>
+        </label><br>
+    </div>
+    <!-- Period 7 -->
+    <div class="period-block">
+        <h3>Period 7</h3>
+        <label>Course:
+            <select th:field="*{periods[7].course}">
+                <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Class Section:
+            <select th:field="*{periods[7].classSection}">
+                <option th:each="section : ${sections}" th:value="${section.id}" th:text="${section.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Subject:
+            <input type="text" th:field="*{periods[8].subject}" required>
+        </label><br>
+
+        <label>Teacher:
+            <input type="text" th:field="*{periods[8].teacher}" required>
+        </label><br>
+
+        <label>Classroom:
+            <input type="text" th:field="*{periods[2].classroom}" required>
+        </label><br>
+    </div>
+    <!-- Period 8 -->
+    <div class="period-block">
+        <h3>Period 8</h3>
+        <label>Course:
+            <select th:field="*{periods[8].course}">
+                <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Class Section:
+            <select th:field="*{periods[8].classSection}">
+                <option th:each="section : ${sections}" th:value="${section.id}" th:text="${section.name}"></option>
+            </select>
+        </label><br>
+
+        <label>Subject:
+            <input type="text" th:field="*{periods[8].subject}" required>
+        </label><br>
+
+        <label>Teacher:
+            <input type="text" th:field="*{periods[8].teacher}" required>
+        </label><br>
+
+        <label>Classroom:
+            <input type="text" th:field="*{periods[8].classroom}" required>
+        </label><br>
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+
+<!-- Back button -->
+<a th:href="@{/admin-dashboard}" class="back-btn">Back to Dashboard</a>
+
+</body>
+</html>
