@@ -1,43 +1,49 @@
 package com.ckumari.ums.config;
 
-import com.ckumari.ums.service.RegistrationService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
+import com.ckumari.ums.service.Interfaces.LoginService;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final RegistrationService registrationService;
+    private final LoginService loginService;
 
-    public SecurityConfig(@Lazy RegistrationService registrationService) {
-        this.registrationService = registrationService;
+    // Inject LoginService lazily to break the circular dependency
+    public SecurityConfig(@Lazy LoginService loginService) {
+        this.loginService = loginService;
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return email -> {
+            var user = loginService.findByEmail(email);
+            if (user.isEmpty()) {
+                throw new UsernameNotFoundException("User not found with email: " + email);
+            }
+            return User
+                    .withUsername(user.get().getEmail())
+                    .password(user.get().getPassword())
+                    .authorities("USER") // Adjust authorities as needed
+                    .build();
+        };
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return email -> registrationService.findById(email)
-                .map(user -> org.springframework.security.core.userdetails.User
-                        .withUsername(user.getEmail())
-                        .password(user.getPassword())
-                        .authorities("USER") // Adjust authorities as needed
-                        .build())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
 
     @Bean
@@ -47,17 +53,22 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/images/**").permitAll()
                                 .requestMatchers("/css/**").permitAll()
-                                .requestMatchers("/login", "/registration", "/register", "/forgot-password", "/home", "/reset-password").permitAll()
-                                .requestMatchers("/timetable").permitAll()
+                                .requestMatchers("/js/**").permitAll()
+                                .requestMatchers("/", "/home-org", "/registration", "/login","/forgot-password", "/reset-password").permitAll()
+                                .requestMatchers("/student-dashboard", "/faculty-dashboard", "/admin-dashboard").permitAll()
+                                .requestMatchers("/admission-personal-info", "/admission-contact-info", "/admission-education-info").permitAll()
+                                .requestMatchers("/student-list-admission", "/student-details-admission").permitAll()
+                                .requestMatchers("/document-view", "document-upload").permitAll()
+
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/login")
                                 .permitAll()
-                                .defaultSuccessUrl("/home", true)
                                 .failureUrl("/login?error=true")
-                                .usernameParameter("email")  // Use email as user-name
+                                .usernameParameter("email")  // Use email as username
+                                .successHandler(customAuthenticationSuccessHandler())
                 )
                 .logout(logout ->
                         logout
@@ -70,7 +81,26 @@ public class SecurityConfig {
                                 .accessDeniedPage("/403")
                 );
 
-
         return http.build();
     }
+
+
+    @Bean
+    public AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+        return (request, response, authentication) -> {
+            var email = authentication.getName();
+            System.out.println("Authenticated email: " + email); // Debug line
+            var profile = loginService.getProfileByEmail(email);
+            System.out.println("User profile: " + profile); // Debug line
+
+            String redirectUrl = switch (profile) {
+                case "student" -> "/student-dashboard";
+                case "faculty" -> "/faculty-dashboard";
+                case "admin" -> "/admin-dashboard";
+                default -> "/login?error=true"; // Default error URL
+            };
+            response.sendRedirect(redirectUrl);
+        };
+    }
+
 }

@@ -1,4 +1,3 @@
-// ClassSectionService.java
 package com.ckumari.ums.service;
 
 import com.ckumari.ums.entity.ClassSection;
@@ -7,18 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClassSectionService {
+
+    private final ClassSectionRepository classSectionRepository;
+
     @Autowired
-    private ClassSectionRepository classSectionRepository;
+    public ClassSectionService(ClassSectionRepository classSectionRepository) {
+        this.classSectionRepository = classSectionRepository;
+    }
 
     public List<ClassSection> getAllClassSections() {
         return classSectionRepository.findAll();
     }
 
     public ClassSection getClassSectionById(Long id) {
-        return classSectionRepository.findById(id).orElse(null);
+        Optional<ClassSection> optionalClassSection = classSectionRepository.findById(id);
+        return optionalClassSection.orElse(null);
     }
 
     public ClassSection saveClassSection(ClassSection classSection) {
@@ -28,8 +34,8 @@ public class ClassSectionService {
     public void deleteClassSection(Long id) {
         classSectionRepository.deleteById(id);
     }
+
     public List<ClassSection> findAll() {
         return classSectionRepository.findAll();
     }
-
 }

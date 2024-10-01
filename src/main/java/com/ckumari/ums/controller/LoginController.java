@@ -1,9 +1,5 @@
 package com.ckumari.ums.controller;
 
-import com.ckumari.ums.dto.LoginDto;
-import com.ckumari.ums.service.CaptchaService;
-import com.ckumari.ums.service.RegistrationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,54 +8,42 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ckumari.ums.dto.LoginDto;
+import com.ckumari.ums.service.Interfaces.LoginService;
+
+import jakarta.validation.Valid;
+
 @Controller
-@RequestMapping("/login")
+@RequestMapping
 public class LoginController {
 
-	@Autowired
-	private RegistrationService registrationService;
+	private LoginService loginService;
 
-	@Autowired
-	private CaptchaService captchaService;
-
-	@GetMapping
-	public String loginPage(Model model) {
+	@GetMapping("/login")
+	public String showLoginPage(Model model){
 		model.addAttribute("loginDto", new LoginDto());
-		String captchaQuestion = captchaService.generateCaptcha();
-		model.addAttribute("captchaQuestion", captchaQuestion);
 		return "login";
 	}
 
-	@PostMapping
-	public String login(@ModelAttribute LoginDto loginDto, BindingResult result, Model model) {
+	@PostMapping("/login")
+	public String login(@Valid @ModelAttribute LoginDto loginDto, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			model.addAttribute("captchaQuestion", captchaService.generateCaptcha());
 			return "login";
 		}
 
-		// Validate CAPTCHA
-		String captchaAnswer = loginDto.getCaptchaAnswer();
-		try {
-			int userAnswer = Integer.parseInt(captchaAnswer);
-			if (!captchaService.validateCaptcha(userAnswer)) {
-				model.addAttribute("error", "Incorrect CAPTCHA. Please try again.");
-				model.addAttribute("captchaQuestion", captchaService.generateCaptcha());
-				return "login";
-			}
-		} catch (NumberFormatException e) {
-			model.addAttribute("error", "CAPTCHA answer is invalid. Please try again.");
-			model.addAttribute("captchaQuestion", captchaService.generateCaptcha());
-			return "login";
-		}
-
-		// Validate User
-		boolean validUser = registrationService.validateUser(loginDto);
+		boolean validUser = loginService.validateUser(loginDto.getEmail(), loginDto.getPassword());
 		if (validUser) {
-			return "redirect:/home";
+			String profile = loginService.getProfileByEmail(loginDto.getEmail());
+			return switch (profile) {
+				case "student" -> "redirect:/student-dashboard";
+				case "faculty" -> "redirect:/faculty-dashboard";
+				case "admin" -> "redirect:/admin-dashboard";
+				default -> "redirect:/login?error=true";
+			};
 		}
 
-		model.addAttribute("error", "Invalid email or password. Please try again.");
-		model.addAttribute("captchaQuestion", captchaService.generateCaptcha());
-		return "login";
+		return "redirect:/login?error=true";
 	}
+
+
 }

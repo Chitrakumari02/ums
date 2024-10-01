@@ -1,4 +1,3 @@
-// TimetableService.java
 package com.ckumari.ums.service;
 
 import com.ckumari.ums.entity.ClassSection;
@@ -11,18 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TimetableService {
 
-    @Autowired
-    private TimetableRepository timetableRepository;
+    private final TimetableRepository timetableRepository;
+    private final CourseRepository courseRepository;
+    private final ClassSectionRepository classSectionRepository;
 
     @Autowired
-    private CourseRepository courseRepository;
-
-    @Autowired
-    private ClassSectionRepository classSectionRepository;
+    public TimetableService(TimetableRepository timetableRepository, CourseRepository courseRepository, ClassSectionRepository classSectionRepository) {
+        this.timetableRepository = timetableRepository;
+        this.courseRepository = courseRepository;
+        this.classSectionRepository = classSectionRepository;
+    }
 
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
@@ -30,10 +32,6 @@ public class TimetableService {
 
     public List<ClassSection> getAllClassSections() {
         return classSectionRepository.findAll();
-    }
-
-    public List<TimetableEntry> getTimetableForCourseAndSection(Long courseId, Long classSectionId) {
-        return timetableRepository.findByCourseIdAndClassSectionId(courseId, classSectionId);
     }
 
     public List<TimetableEntry> getAllTimetableEntries() {
@@ -44,6 +42,16 @@ public class TimetableService {
         return timetableRepository.findByCourseIdAndClassSectionId(courseId, classSectionId);
     }
 
+    public void saveTimetableEntry(TimetableEntry timetableEntry) {
+        timetableRepository.save(timetableEntry);
+    }
 
+    public TimetableEntry getTimetableEntryById(Long id) {
+        Optional<TimetableEntry> optionalTimetableEntry = timetableRepository.findById(id);
+        return optionalTimetableEntry.orElse(null);
+    }
+
+    public void deleteTimetableEntry(Long id) {
+        timetableRepository.deleteById(id);
+    }
 }
-

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
+    <link rel="stylesheet" th:href="@{/css/registration.css}">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,73 +12,88 @@
             margin: 0;
             padding: 0;
         }
+
         h1 {
-            color: #0D5A87;
+            color: #0d5a87;
             text-align: center;
             margin-top: 20px;
         }
+
         form {
-            max-width: 600px;
+            max-width: 650px;
             margin: 20px auto;
-            padding: 20px;
+            padding: 30px;
             background-color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
         }
+
         label {
             display: block;
             margin-bottom: 5px;
             color: #333333;
         }
+
         input[type="text"],
         input[type="email"],
-        input[type="password"] {
-            width: 100%;
+        input[type="password"],
+        select {
+            width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #cccccc;
             border-radius: 5px;
             transition: all 0.3s ease;
         }
+
         input[type="text"]:hover,
         input[type="email"]:hover,
-        input[type="password"]:hover {
-            border-color: #0D5A87;
+        input[type="password"]:hover,
+        select:hover {
+            border-color: #0d5a87;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
+
         input[type="radio"] {
             margin-right: 5px;
         }
-        .desgn-div,
+
+        .profile-div,
+        .salutation-div,
         .address-div,
         .security-question {
             margin-bottom: 15px;
         }
-        .desgn-div label,
-        .address-div label,
-        .security-question label {
-            display: block;
-            margin-bottom: 5px;
+
+        .profile-div label,
+        .salutation-div label,
+        .address-div label {
+            display: inline-block;
+            margin-right: 10px;
         }
+
         .btn-div {
             display: flex;
             justify-content: center;
         }
+
         .btn-div button {
             width: 100%;
             padding: 10px;
-            background-color: #0D5A87;
+            background-color: #0d5a87;
             color: #ffffff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
+
         .btn-div button:hover {
             background-color: #0a486a;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             transform: scale(1.05);
         }
+
         .alert {
             padding: 10px;
             background-color: #dff0d8;
@@ -86,9 +102,59 @@
             border-radius: 5px;
             text-align: center;
         }
+
         .error {
             color: red;
             font-size: 0.9em;
+        }
+
+        /* Security Questions */
+        .security-question label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333333;
+        }
+
+        .security-question input[type="text"],
+        .security-question select {
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .security-question input[type="text"]:hover,
+        .security-question select:hover {
+            border-color: #0d5a87;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .required::after {
+            content: " *";
+            color: red;
+        }
+
+        /* Styling for Go Back Home Button */
+        .btn-home {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 18px;
+            background-color: #0d5a87;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn-home:hover {
+            background-color: #0a486a;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+            transform: scale(1.03);
         }
     </style>
 </head>
@@ -98,93 +164,135 @@
     <!-- Success message -->
     <div th:if="${param.success}">
         <div class="alert">You've successfully registered</div>
+        <!-- Go Back Home Button-->
+        <div>
+            <a th:href="@{/home}" class="btn-home">Go Back Home</a>
+        </div>
     </div>
 </div>
 <form th:action="@{/registration}" method="post" th:object="${registration}">
-    <div class="desgn-div">
-        <label for="designation">Designation:</label>
-        <label for="desgn-ms">
-            <input id="desgn-ms" type="radio" name="designation" th:value="'Ms'" th:field="*{designation}" /> Ms
+    <div class="salutation-div">
+        <label class="required">Salutation:</label>
+        <label for="salutation-ms">
+            <input id="salutation-ms" type="radio" name="salutation" th:value="'Ms'" th:field="*{salutation}" /> Ms
         </label>
-        <label for="desgn-miss">
-            <input id="desgn-miss" type="radio" name="designation" th:value="'Miss'" th:field="*{designation}" /> Miss
+        <label for="salutation-miss">
+            <input id="salutation-miss" type="radio" name="salutation" th:value="'Miss'" th:field="*{salutation}" /> Miss
+        </label>
+        <label for="salutation-mr">
+            <input id="salutation-mr" type="radio" name="salutation" th:value="'Mr'" th:field="*{salutation}" /> Mr
+        </label>
+        <label for="salutation-dr">
+            <input id="salutation-dr" type="radio" name="salutation" th:value="'Dr'" th:field="*{salutation}" /> Dr
         </label>
     </div>
     <div>
-        <label for="firstName">First Name:</label>
-        <input id="firstName" name="firstName" type="text" th:field="*{firstName}" required />
-        <div class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</div>
+        <label for="firstName" class="required">First Name:</label>
+        <input id="firstName" name="firstName" type="text" th:field="*{first_name}" required />
+        <div class="error" th:if="${#fields.hasErrors('first_name')}" th:errors="*{first_name}">First Name Error</div>
     </div>
     <div>
         <label for="middleName">Middle Name:</label>
-        <input id="middleName" name="middleName" type="text" th:field="*{middleName}" />
+        <input id="middleName" name="middleName" type="text" th:field="*{middle_name}" />
     </div>
     <div>
-        <label for="lastName">Last Name:</label>
-        <input id="lastName" name="lastName" type="text" th:field="*{lastName}" required />
-        <div class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</div>
+        <label for="lastName" class="required">Last Name:</label>
+        <input id="lastName" name="lastName" type="text" th:field="*{last_name}" required />
+        <div class="error" th:if="${#fields.hasErrors('last_name')}" th:errors="*{last_name}">Last Name Error</div>
     </div>
     <div>
-        <label for="email">Email:</label>
+        <label for="email" class="required">Email:</label>
         <input id="email" name="email" type="email" th:field="*{email}" required />
         <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
     </div>
+
+    <div class="profile-div">
+        <label class="required">Profile:</label>
+        <label for="profile-student">
+            <input id="profile-student" type="radio" name="profile" th:value="student" th:field="*{profile}" /> Student
+        </label>
+        <label for="profile-faculty">
+            <input id="profile-faculty" type="radio" name="profile" th:value="faculty" th:field="*{profile}" /> Faculty
+        </label>
+        <label for="profile-admin">
+            <input id="profile-admin" type="radio" name="profile" th:value="admin" th:field="*{profile}" /> Admin
+        </label>
+    </div>
+
     <div>
-        <label for="password">Password:</label>
+        <label for="password" class="required">Password:</label>
         <input id="password" name="password" type="password" th:field="*{password}" required />
         <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
     </div>
     <div class="address-div">
-        <label for="houseNumber">House Number/Building Name:</label>
-        <input id="houseNumber" name="houseNumber" type="text" th:field="*{houseNumber}" required />
-        <div class="error" th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}">House Number Error</div>
+        <label for="houseNumber" class="required">House Number/Building Name:</label>
+        <input id="houseNumber" name="houseNumber" type="text" th:field="*{house_no}" required />
+        <div class="error" th:if="${#fields.hasErrors('house_no')}" th:errors="*{house_no}">House Number Error</div>
     </div>
     <div class="address-div">
-        <label for="streetName">Street Name/Area/Locality:</label>
-        <input id="streetName" name="streetName" type="text" th:field="*{streetName}" required />
-        <div class="error" th:if="${#fields.hasErrors('streetName')}" th:errors="*{streetName}">Street Name Error</div>
+        <label for="streetName" class="required">Street Name/Area/Locality:</label>
+        <input id="streetName" name="streetName" type="text" th:field="*{street_name}" required />
+        <div class="error" th:if="${#fields.hasErrors('street_name')}" th:errors="*{street_name}">Street Name Error</div>
     </div>
     <div class="address-div">
-        <label for="city">City/Town/Village:</label>
+        <label for="city" class="required">City/Town/Village:</label>
         <input id="city" name="city" type="text" th:field="*{city}" required />
         <div class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">City Error</div>
     </div>
     <div class="address-div">
-        <label for="state">State:</label>
+        <label for="state" class="required">State:</label>
         <input id="state" name="state" type="text" th:field="*{state}" required />
         <div class="error" th:if="${#fields.hasErrors('state')}" th:errors="*{state}">State Error</div>
     </div>
     <div class="address-div">
-        <label for="country">Country:</label>
+        <label for="country" class="required">Country:</label>
         <input id="country" name="country" type="text" th:field="*{country}" required />
         <div class="error" th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Country Error</div>
     </div>
     <div class="address-div">
-        <label for="pinCode">Pin Code:</label>
-        <input id="pinCode" name="pinCode" type="text" th:field="*{pinCode}" required pattern="\d{6}" title="Pin code must be exactly 6 digits" />
-        <div class="error" th:if="${#fields.hasErrors('pinCode')}" th:errors="*{pinCode}">Pin Code Error</div>
+        <label for="pinCode" class="required">Pin Code:</label>
+        <input id="pinCode" name="pinCode" type="text" th:field="*{pin_code}" required pattern="\d{6}" title="Pin code must be exactly 6 digits" />
+        <div class="error" th:if="${#fields.hasErrors('pin_code')}" th:errors="*{pin_code}">Pin Code Error</div>
     </div>
     <div>
-        <label for="phoneNo">Phone Number:</label>
-        <input id="phoneNo" name="phoneNo" type="text" th:field="*{phoneNo}" required pattern="^[6-9]\d{9}$" title="Phone number should be exactly 10 digits and start with 6, 7, 8, or 9" />
-        <div class="error" th:if="${#fields.hasErrors('phoneNo')}" th:errors="*{phoneNo}">Phone Number Error</div>
+        <label for="phoneNo" class="required">Phone Number:</label>
+        <input id="phoneNo" name="phoneNo" type="text" th:field="*{phone_no}" required pattern="^[6-9]\d{9}$" title="Phone number should be exactly 10 digits and start with 6, 7, 8, or 9" />
+        <div class="error" th:if="${#fields.hasErrors('phone_no')}" th:errors="*{phone_no}">Phone Number Error</div>
     </div>
 
     <!-- Security Questions -->
     <div class="security-question">
-        <label for="question1">What was the name of your first pet?</label>
-        <input id="question1" name="question1" type="text" th:field="*{question1}" required />
-        <div class="error" th:if="${#fields.hasErrors('question1')}" th:errors="*{question1}">Question 1 Error</div>
+        <label for="question1" class="required">Security Question 1:</label>
+        <select id="question1" name="question1" th:field="*{question_1}" required>
+            <option value="">Select a question</option>
+            <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+            <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+            <option value="What was the name of your elementary school?">What was the name of your elementary school?</option>
+        </select>
+        <input type="text" name="securityAnswer1" th:field="*{answer_1}" placeholder="Answer" required />
+        <div class="error" th:if="${#fields.hasErrors('answer_1')}" th:errors="*{answer_1}">Answer Error</div>
     </div>
     <div class="security-question">
-        <label for="question2">What is the name of the city where you were born?</label>
-        <input id="question2" name="question2" type="text" th:field="*{question2}" required />
-        <div class="error" th:if="${#fields.hasErrors('question2')}" th:errors="*{question2}">Question 2 Error</div>
+        <label for="question2" class="required">Security Question 2:</label>
+        <select id="question2" name="question2" th:field="*{question_2}" required>
+            <option value="">Select a question</option>
+            <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+            <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+            <option value="What was the name of your elementary school?">What was the name of your elementary school?</option>
+        </select>
+        <input type="text" name="securityAnswer2" th:field="*{answer_2}" placeholder="Answer" required />
+        <div class="error" th:if="${#fields.hasErrors('answer_2')}" th:errors="*{answer_2}">Answer 2 Error</div>
     </div>
     <div class="security-question">
-        <label for="question3">What is your mother’s maiden name?</label>
-        <input id="question3" name="question3" type="text" th:field="*{question3}" required />
-        <div class="error" th:if="${#fields.hasErrors('question3')}" th:errors="*{question3}">Question 3 Error</div>
+        <label for="question3" class="required">Security Question 3:</label>
+        <select id="question3" name="question3" th:field="*{question_3}" required>
+            <option value="">Select a question</option>
+            <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+            <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+            <option value="What was the name of your elementary school?">What was the name of your elementary school?</option>
+        </select>
+        <input type="text" name="securityAnswer3" th:field="*{answer_3}" placeholder="Answer" required />
+        <div class="error" th:if="${#fields.hasErrors('answer_3')}" th:errors="*{answer_3}">Answer 3 Error</div>
     </div>
 
     <div class="btn-div">
@@ -193,3 +301,4 @@
 </form>
 </body>
 </html>
+

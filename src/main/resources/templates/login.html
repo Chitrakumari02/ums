@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Login</title>
-    <link rel="stylesheet" th:href="@{/css/login.css}">
     <style>
+        /* General reset and layout styling */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            background-color: #f4f4f9;
+            color: #333;
             margin: 0;
             padding: 0;
             display: flex;
@@ -19,9 +20,17 @@
         }
 
         .container {
-            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        form {
+            background: #fff;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             width: 100%;
             max-width: 400px;
@@ -30,69 +39,64 @@
 
         h1 {
             text-align: center;
-            color: #333333;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        div {
+            margin-bottom: 15px;
         }
 
         label {
             display: block;
-            color: #555555;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: bold;
+            color: #2c3e50;
         }
 
-        input[type="text"], input[type="password"] {
+        input[type="text"],
+        input[type="password"] {
             width: 100%;
             padding: 10px;
-            margin-bottom: 16px;
-            border: 1px solid #cccccc;
+            border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
-            font-size: 16px;
-            color: #333333;
         }
 
         button {
-            width: 100%;
-            padding: 12px;
-            background-color: #0D5A87;
-            color: #ffffff;
+            background-color: #3498db;
+            color: white;
             border: none;
+            padding: 10px 20px;
             border-radius: 4px;
-            font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            font-size: 16px;
+            width: 100%;
         }
 
         button:hover {
-            background-color: #0b4a70;
-        }
-
-        .error {
-            color: #e74c3c;
-            font-size: 14px;
-            text-align: center;
-            margin-top: 16px;
-        }
-
-        .success {
-            color: #2ecc71;
-            font-size: 14px;
-            text-align: center;
-            margin-top: 16px;
+            background-color: #2980b9;
         }
 
         a {
-            display: block;
-            text-align: center;
-            color: #0D5A87;
-            margin-top: 24px;
+            color: #3498db;
             text-decoration: none;
-            font-size: 14px;
         }
 
         a:hover {
             text-decoration: underline;
+        }
+
+        div > p {
+            color: #e74c3c;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .profile-div label {
+            display: inline-block;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -100,29 +104,44 @@
 <div class="container">
     <form th:action="@{/login}" method="post" th:object="${loginDto}">
         <h1>Login</h1>
+
+        <div class="profile-div">
+            <label class="required">Profile:</label>
+            <label for="profile-student">
+                <input id="profile-student" type="radio" name="profile" th:value="student" th:field="*{profile}" /> Student
+            </label>
+            <label for="profile-faculty">
+                <input id="profile-faculty" type="radio" name="profile" th:value="faculty" th:field="*{profile}" /> Faculty
+            </label>
+            <label for="profile-admin">
+                <input id="profile-admin" type="radio" name="profile" th:value="admin" th:field="*{profile}" /> Admin
+            </label>
+        </div>
+
         <div>
             <label for="email">Email:</label>
             <input type="text" id="email" name="email" th:field="*{email}" required/>
         </div>
+
         <div>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" th:field="*{password}" required/>
         </div>
-        <div>
-            <label for="captcha">Captcha: <span th:text="${captchaQuestion}"></span></label>
-            <input type="text" id="captcha" name="captchaAnswer" th:field="*{captchaAnswer}" required/>
-        </div>
+
         <div>
             <button type="submit">Login</button>
         </div>
-        <div th:if="${param.error}">
-            <p class="error">Invalid email or password. Please try again.</p>
-        </div>
-        <div th:if="${param.logout}">
-            <p class="success">You have been logged out successfully.</p>
-        </div>
+
         <div>
             <a th:href="@{/forgot-password}">Forgot Password?</a>
+        </div>
+
+        <div th:if="${param.error == 'true'}">
+            <p th:text="'Invalid email, password, or profile'">Invalid email, password, or profile</p>
+        </div>
+
+        <div th:if="${param.reset == 'success'}">
+            <p>Password successfully reset</p>
         </div>
     </form>
 </div>

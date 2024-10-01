@@ -1,41 +1,43 @@
 package com.ckumari.ums.controller;
 
-import com.ckumari.ums.service.RegistrationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.ckumari.ums.dto.RegistrationDto;
+import com.ckumari.ums.service.Interfaces.RegistrationService;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/registration")
 public class RegistrationController {
 
     private final RegistrationService registrationService;
 
-    @Autowired
     public RegistrationController(RegistrationService registrationService) {
+        super();
         this.registrationService = registrationService;
     }
 
-    @GetMapping("/registration")
+    @GetMapping
     public String showRegistrationForm(Model model) {
-        model.addAttribute("registration", new RegistrationDto());
+        model.addAttribute("registration",new RegistrationDto());
         return "registration";
     }
 
-    @PostMapping("/registration")
-    public String registerUserAccount(@ModelAttribute("registration") @Valid RegistrationDto registrationDto,
-                                      BindingResult result) {
-
+    @PostMapping
+    public String registerAccount(@Valid @ModelAttribute("/registration") RegistrationDto registrationDto,
+                                  BindingResult result, Model model) {
         if (result.hasErrors()) {
+            // Return to registration form with error messages
             return "registration";
         }
 
+        // If no errors, save the registration data
         registrationService.save(registrationDto);
         return "redirect:/registration?success";
     }
